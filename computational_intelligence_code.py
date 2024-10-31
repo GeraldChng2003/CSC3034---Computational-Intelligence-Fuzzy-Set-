@@ -39,6 +39,7 @@ aircon = ctrl.Consequent(np.arange(0, 100, 0.1), 'aircon')
 '''
 Occupancy Level Antecedent
 '''
+occupancy['None'] = mf.trimf(occupancy.universe, [0, 0, 0])
 occupancy['low'] = mf.trimf(occupancy.universe, [0, 25, 35])
 occupancy['medium'] = mf.trimf(occupancy.universe, [30, 50, 65])
 occupancy['high'] = mf.trimf(occupancy.universe, [60, 85, 100])
