@@ -29,7 +29,7 @@ Aircon also measured in celcius
 '''
 occupancy = ctrl.Antecedent(np.arange(0, 100, 0.1), 'occupancy')
 natural_lighting = ctrl.Antecedent(np.arange(0, 100, 0.1), 'natural')
-temperature = ctrl.Antecedent(np.arange(0, 100, 0.1), 'temperature')
+temperature = ctrl.Antecedent(np.arange(0, 40, 0.1), 'temperature')
 ##weather = ctrl.Antecedent(np.arange(0, 100, 0.1), 'weather')
 
 artificial_lighting = ctrl.Consequent(np.arange(0, 100, 0.1), 'artificial')
@@ -39,7 +39,6 @@ aircon = ctrl.Consequent(np.arange(0, 100, 0.1), 'aircon')
 '''
 Occupancy Level Antecedent
 '''
-occupancy['None'] = mf.trimf(occupancy.universe, [0, 0, 0])
 occupancy['low'] = mf.trimf(occupancy.universe, [0, 25, 35])
 occupancy['medium'] = mf.trimf(occupancy.universe, [30, 50, 65])
 occupancy['high'] = mf.trimf(occupancy.universe, [60, 85, 100])
@@ -56,11 +55,11 @@ Outside Temperature Antecedent
 '''
 temperature['low'] = mf.trimf(temperature.universe, [0, 18, 24])
 temperature['comfortable'] = mf.trimf(temperature.universe, [20, 28, 30])
-temperature['high'] = mf.trimf(temperature.universe, [25, 40, 100])
+temperature['high'] = mf.trimf(temperature.universe, [25, 35, 40])
 
 ##Consequent
 
-'''git
+'''
 Artificial Lighting Consequent
 '''
 artificial_lighting['off'] = mf.trimf(artificial_lighting.universe, [0, 0, 0])
@@ -79,7 +78,7 @@ aircon['high'] = mf.trimf(aircon.universe, [20, 25, 30])
 
 ## Fuzzy Set Rules
 '''
-New Intializing Rules Just Dropped
+New Intializing Rules
 '''
 ## occupancy + lighting => artifical lighting
 
@@ -158,7 +157,7 @@ z_artificial_lighting = np.zeros_like(x, dtype=float)
 z_aircon = np.zeros_like(x, dtype=float)
 
 '''
-Loopy Loop
+Training Model
 '''
 for i,r in enumerate(x):
   for j,c in enumerate(r):
@@ -174,7 +173,7 @@ for i,r in enumerate(x):
       z_aircon[i,j] = float('inf')
 
 '''
-Graph in the corner, plotting world domination
+Graph
 '''
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
