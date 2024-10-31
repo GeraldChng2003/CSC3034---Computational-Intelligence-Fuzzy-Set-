@@ -60,7 +60,7 @@ temperature['high'] = mf.trimf(temperature.universe, [25, 40, 100])
 
 ##Consequent
 
-'''
+'''git
 Artificial Lighting Consequent
 '''
 artificial_lighting['off'] = mf.trimf(artificial_lighting.universe, [0, 0, 0])
