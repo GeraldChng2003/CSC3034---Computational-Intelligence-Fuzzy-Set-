@@ -70,7 +70,6 @@ artificial_lighting['high'] = mf.trimf(artificial_lighting.universe, [650, 750, 
 '''
 Aircon Consequent (lower means cooler aircon)
 '''
-aircon['off'] = mf.trimf(aircon.universe, [0, 0, 0])
 aircon['low'] = mf.trimf(aircon.universe, [16, 18, 20])
 aircon['moderate'] = mf.trimf(aircon.universe, [18, 22, 24])
 aircon['high'] = mf.trimf(aircon.universe, [20, 25, 30])
@@ -81,38 +80,32 @@ aircon['high'] = mf.trimf(aircon.universe, [20, 25, 30])
 New Intializing Rules
 '''
 ## occupancy + lighting => artifical lighting
-rule1 = ctrl.Rule(occupancy['None'] & natural_lighting['low'], (artificial_lighting['off']))
-rule2 = ctrl.Rule(occupancy['None'] & natural_lighting['moderate'], (artificial_lighting['off']))
-rule3 = ctrl.Rule(occupancy['None'] & natural_lighting['high'], (artificial_lighting['off']))
 
-rule4 = ctrl.Rule(occupancy['low'] & natural_lighting['low'], (artificial_lighting['low']))
-rule5 = ctrl.Rule(occupancy['low'] & natural_lighting['moderate'], (artificial_lighting['off']))
-rule6 = ctrl.Rule(occupancy['low'] & natural_lighting['high'], (artificial_lighting['off']))
+rule1 = ctrl.Rule(occupancy['low'] & natural_lighting['low'], (artificial_lighting['low']))
+rule2 = ctrl.Rule(occupancy['low'] & natural_lighting['moderate'], (artificial_lighting['off']))
+rule3 = ctrl.Rule(occupancy['low'] & natural_lighting['high'], (artificial_lighting['off']))
 
-rule7 = ctrl.Rule(occupancy['medium'] & natural_lighting['low'], (artificial_lighting['moderate']))
-rule8 = ctrl.Rule(occupancy['medium'] & natural_lighting['moderate'], (artificial_lighting['low']))
-rule9 = ctrl.Rule(occupancy['medium'] & natural_lighting['high'], (artificial_lighting['low']))
+rule4 = ctrl.Rule(occupancy['medium'] & natural_lighting['low'], (artificial_lighting['moderate']))
+rule5 = ctrl.Rule(occupancy['medium'] & natural_lighting['moderate'], (artificial_lighting['low']))
+rule6 = ctrl.Rule(occupancy['medium'] & natural_lighting['high'], (artificial_lighting['low']))
 
-rule10 = ctrl.Rule(occupancy['high'] & natural_lighting['low'], (artificial_lighting['high']))
-rule11 = ctrl.Rule(occupancy['high'] & natural_lighting['moderate'], (artificial_lighting['moderate']))
-rule12 = ctrl.Rule(occupancy['high'] & natural_lighting['high'], (artificial_lighting['low']))
+rule7 = ctrl.Rule(occupancy['high'] & natural_lighting['low'], (artificial_lighting['high']))
+rule8 = ctrl.Rule(occupancy['high'] & natural_lighting['moderate'], (artificial_lighting['moderate']))
+rule9 = ctrl.Rule(occupancy['high'] & natural_lighting['high'], (artificial_lighting['low']))
 
 ## occupancy + temp => ac settings
-rule13 = ctrl.Rule(occupancy['None'] & temperature['low'], (aircon['off']))
-rule14 = ctrl.Rule(occupancy['None'] & temperature['comfortable'], (aircon['off']))
-rule15 = ctrl.Rule(occupancy['None'] & temperature['high'], (aircon['off']))
 
-rule16 = ctrl.Rule(occupancy['low'] & temperature['low'], (aircon['off']))
-rule17 = ctrl.Rule(occupancy['low'] & temperature['comfortable'], (aircon['off']))
-rule18 = ctrl.Rule(occupancy['low'] & temperature['high'], (aircon['moderate']))
+rule10 = ctrl.Rule(occupancy['low'] & temperature['low'], (aircon['off']))
+rule11 = ctrl.Rule(occupancy['low'] & temperature['comfortable'], (aircon['off']))
+rule12 = ctrl.Rule(occupancy['low'] & temperature['high'], (aircon['moderate']))
 
-rule19 = ctrl.Rule(occupancy['medium'] & temperature['low'], (aircon['moderate']))
-rule20 = ctrl.Rule(occupancy['medium'] & temperature['comfortable'], (aircon['moderate']))
-rule21 = ctrl.Rule(occupancy['medium'] & temperature['high'], (aircon['low']))
+rule13 = ctrl.Rule(occupancy['medium'] & temperature['low'], (aircon['moderate']))
+rule14 = ctrl.Rule(occupancy['medium'] & temperature['comfortable'], (aircon['moderate']))
+rule15 = ctrl.Rule(occupancy['medium'] & temperature['high'], (aircon['low']))
 
-rule22 = ctrl.Rule(occupancy['high'] & temperature['low'], (aircon['high']))
-rule23= ctrl.Rule(occupancy['high'] & temperature['comfortable'], (aircon['moderate']))
-rule24 = ctrl.Rule(occupancy['high'] & temperature['high'], (aircon['low']))
+rule16 = ctrl.Rule(occupancy['high'] & temperature['low'], (aircon['high']))
+rule17= ctrl.Rule(occupancy['high'] & temperature['comfortable'], (aircon['moderate']))
+rule18 = ctrl.Rule(occupancy['high'] & temperature['high'], (aircon['low']))
 
 
 
@@ -128,9 +121,9 @@ train = ctrl.ControlSystemSimulation(control_system=train_ctrl)
 
 
 # define the values for the inputs
-train.input['occupancy'] = 0
-train.input['natural'] = 2000
-train.input['temperature'] = 2000
+train.input['occupancy'] = 10
+train.input['natural'] = 1500
+train.input['temperature'] = 26
 
 
 
